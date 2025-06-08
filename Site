@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Support & Home + Mode Sombre</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: white;
+      color: #222;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    .top-buttons {
+      background-color: #444;
+      padding: 15px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 1000;
+    }
+
+    .top-buttons button {
+      background-color: #222;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .top-buttons button:hover {
+      background-color: #333;
+    }
+
+    .content {
+      margin-top: 80px;
+      padding: 20px;
+      text-align: center;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .message {
+      display: none;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+
+      background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+      background-size: 1400% 1400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 5s ease infinite;
+    }
+
+    .home-text {
+      display: none;
+      font-size: 28px;
+      font-weight: 900;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .home-subtext {
+      display: none;
+      font-size: 16px;
+      font-weight: normal;
+      color: #666;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Mode sombre */
+    body.dark-mode {
+      background-color: #222;
+      color: #eee;
+    }
+    body.dark-mode .top-buttons {
+      background-color: #555;
+    }
+    body.dark-mode .top-buttons button {
+      background-color: #444;
+      color: #eee;
+    }
+    body.dark-mode .top-buttons button:hover {
+      background-color: #666;
+    }
+    body.dark-mode .home-text {
+      color: #eee;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    }
+    body.dark-mode .home-subtext {
+      color: #bbb;
+    }
+
+    @keyframes rainbow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-buttons">
+    <button id="homeBtn">Home</button>
+    <button id="supportBtn">Support</button>
+    <button id="modeBtn">Mode sombre</button>
+  </div>
+
+  <div class="content">
+    <div id="supportMessage" class="message">Indisponible pour le moment</div>
+    <div id="homeText" class="home-text">Les fan de Lepro</div>
+    <div id="homeSubtext" class="home-subtext">Rien pour l'instant :/</div>
+  </div>
+
+  <script>
+    const supportMessage = document.getElementById("supportMessage");
+    const homeText = document.getElementById("homeText");
+    const homeSubtext = document.getElementById("homeSubtext");
+    const homeBtn = document.getElementById("homeBtn");
+    const supportBtn = document.getElementById("supportBtn");
+    const modeBtn = document.getElementById("modeBtn");
+
+    // Affichage initial sur Home
+    homeText.style.display = "flex";
+    homeSubtext.style.display = "block";
+
+    homeBtn.addEventListener("click", () => {
+      supportMessage.style.display = "none";
+      homeText.style.display = "flex";
+      homeSubtext.style.display = "block";
+    });
+
+    supportBtn.addEventListener("click", () => {
+      homeText.style.display = "none";
+      homeSubtext.style.display = "none";
+      supportMessage.style.display = "block";
+    });
+
+    modeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      if(document.body.classList.contains("dark-mode")) {
+        modeBtn.textContent = "Mode clair";
+      } else {
+        modeBtn.textContent = "Mode sombre";
+      }
+    });
+  </script>
+
+</body>
+</html>
